@@ -9,6 +9,7 @@ class AdaptiveHuffmanTree:
     NYT = None 
 # Save the symbols that were transmitted
     SymbolsTransmited = {}
+    AllNode = []
 #init the tree (root node ~ parent = None, symbol = None)
     def __init__(self, number, parent = None, symbol = None):
         AdaptiveHuffmanTree.NYT = self
@@ -17,27 +18,39 @@ class AdaptiveHuffmanTree:
         self.symbol = symbol
         self.number = number
         self.weight = 0
+        AdaptiveHuffmanTree.AllNode.append(self)
 #refresh the SymbolsTransmited dict
     def refresh(self):
         AdaptiveHuffmanTree.SymbolsTransmited = {}
+        AdaptiveHuffmanTree.AllNode = []
 #swap the current node with the max number node in block (block contains node with the same weight)
     def SwapNode(self, current):
         if(current != self):
-            parent = current.parent
-            ''' 
-                * if current is the right child -> dont need to swap 
-                  because number of the right child > left one
-                * dont need to compare weight with the children , just need compare with sibling 
-                  because the parent's weight always > the its child weight 
-            '''
-            if(current == parent.left and current.weight == parent.right.weight):
-                # the number of left and right child dont change after swap so we need to save it before swapping
-                numberBeforeSwap =  [parent.left.number, parent.right.number]
-                # swap two node
-                parent.left = parent.right
-                parent.right = current
-                # make the number as before swapping
-                [parent.left.number ,parent.right.number] = numberBeforeSwap
+            maxNumberNode = current
+#find node has max number in blocks (blocks contain nodes which have the same weight)
+            for node in AdaptiveHuffmanTree.AllNode:
+                if(node.weight == current.weight and node.number > maxNumberNode.number):
+                    maxNumberNode = node
+#swap two node
+            if(maxNumberNode != current):
+                maxNumberNode_parent = maxNumberNode.parent
+                current_parent = current.parent
+                maxNumberNode.number, current.number = current.number, maxNumberNode.number
+                if(maxNumberNode_parent == current_parent):
+                    current_parent.left, current_parent.right = maxNumberNode, current
+                else:
+                    if(current_parent.left == current):
+                        current_parent.left = maxNumberNode
+                    else:
+                        current_parent.right = maxNumberNode
+                    maxNumberNode.parent = current_parent
+
+                    if(maxNumberNode_parent.left == maxNumberNode):
+                        maxNumberNode_parent.left = current
+                    else:
+                        maxNumberNode_parent.right = current
+                    current.parent = maxNumberNode_parent
+
 #UpdateProcedure function
     def UpdateProcedure(self, symbol, current = None):
         # If first appearance for symbol
@@ -51,7 +64,7 @@ class AdaptiveHuffmanTree:
             current.right.weight+=1 #external node
             current.weight+=1 #old NYT node
             #Sign the symbols had been transmited by an array
-            AdaptiveHuffmanTree.SymbolsTransmited[symbol] = 1
+            AdaptiveHuffmanTree.SymbolsTransmited[symbol] = current.right
         # If symbol had been appeared before
         else:
             # swap (if not max in block) -> Increment weight node
@@ -65,5 +78,7 @@ class AdaptiveHuffmanTree:
 # traver the tree in pre-order to test
     def PreOrderTraversal(self):
         print(self.number, self.weight, self.symbol)
-        if(self.left != None): self.left.PreOrderTraversal()
-        if(self.right != None): self.right.PreOrderTraversal() 
+        if(self.left != None): 
+            self.left.PreOrderTraversal()
+        if(self.right != None): 
+            self.right.PreOrderTraversal() 

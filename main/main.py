@@ -7,7 +7,8 @@ if __name__ == "__main__":
     #encode
     symbols = [1,1,18,4,22,1,18,11] # ~ [a,a,r,d,v,a,r,k]
     encodedString = Enp.EncodeProcedure(InputSourceSize, symbols)
-    print("the encoded string is:", encodedString) # = 00000101000100000110001011010110001010
-    #decode
+    print("the encoded string is:", encodedString) 
+    # 00000101000100000110001011010110001010
+    # 00000101000100000110001011010110001010
     decodedArray = Dep.DecodeProcedure(InputSourceSize, encodedString)
     print("the decoded symbols array is:", decodedArray) # = [1,1,18,4,22,1,18,11]

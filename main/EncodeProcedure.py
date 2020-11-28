@@ -3,35 +3,18 @@ import EnDeCodeASymbol as EnDeCodeASymbol
 import math
 
 #find and return the external node and road from root to it
-def FindExternalNode(AHM_Tree, symbol):
+def FindExternalNode(externalNode):
     road = ""
-    current = AHM_Tree
-    while(current.symbol != symbol):
-        if(current.left.symbol == symbol): 
-            current = current.left
+    current = externalNode
+    while(current.parent != None):
+        if(current.parent.left == current): 
             road += "0"
-        elif (current.right.symbol == symbol): 
-            current = current.right
+        else:
             road += "1"
-        elif (current.left.symbol == None): 
-            current = current.left
-            road += "0"
-        else: 
-            current = current.right
-            road += "1"
-    return [current, road]
+        current = current.parent
+    return road[::-1]
 #find and return the road from root to the NYT node
-def FindRoadToNYT(AHM_Tree):
-    road = ""
-    current = AHM_Tree
-    while(current != UpdateProcedure.AdaptiveHuffmanTree.NYT):
-        if (current.left.symbol == None): 
-            current = current.left
-            road += "0"
-        else: 
-            current = current.right
-            road += "1"
-    return road
+
 def EncodeProcedure(inputSourceSize, symbols) :
     '''
     @param: inputSourceSize : # the total leafs ~ total size of source
@@ -48,15 +31,19 @@ def EncodeProcedure(inputSourceSize, symbols) :
     encodedString = ""
     for s in symbols :
         # if s have not been transmited yet
-        if(AHM_Tree.SymbolsTransmited.get(s) == None):
+        externalNode = AHM_Tree.SymbolsTransmited.get(s) 
+        if(externalNode == None):
             #find road to NYT node
-            roadToNYT = FindRoadToNYT(AHM_Tree)
+            roadToNYT = FindExternalNode(UpdateProcedure.AdaptiveHuffmanTree.NYT)
             encodedString +=  (roadToNYT + EnDeCodeASymbol.Encode(e, r, s))
             AHM_Tree.UpdateProcedure(s)
         else: # if s have been transmited yet
             #find external node and road to it
-            [externalNode, roadToExternalNode] = FindExternalNode(AHM_Tree, s)
+            roadToExternalNode = FindExternalNode(externalNode)
             encodedString += roadToExternalNode
             AHM_Tree.UpdateProcedure(s, externalNode)
+    # AHM_Tree.PreOrderTraversal()
+    # for i in AHM_Tree.AllNode:
+    #     print(i.number)
     return encodedString
 
