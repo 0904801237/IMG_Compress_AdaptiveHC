@@ -77,7 +77,7 @@ class AdaptiveHuffmanTree:
             current.weight+=1
 # traver the tree in pre-order to test
     def PreOrderTraversal(self):
-        print(self.number, self.weight, self.symbol)
+        #print(self.number, self.weight, self.symbol)
         if(self.left != None): 
             self.left.PreOrderTraversal()
         if(self.right != None): 
