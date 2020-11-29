@@ -29,7 +29,7 @@ class AdaptiveHuffmanTree:
             maxNumberNode = current
 #find node has max number in blocks (blocks contain nodes which have the same weight)
             for node in AdaptiveHuffmanTree.AllNode:
-                if(node.weight == current.weight and node.number > maxNumberNode.number):
+                if(node != current.parent and node.weight == current.weight and node.number > maxNumberNode.number):
                     maxNumberNode = node
 #swap two node
             if(maxNumberNode != current):

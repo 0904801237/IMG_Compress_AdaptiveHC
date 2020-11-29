@@ -12,6 +12,7 @@ def FindExternalNode(externalNode):
         else:
             road += "1"
         current = current.parent
+        print(current.number)
     return road[::-1]
 #find and return the road from root to the NYT node
 
@@ -42,7 +43,7 @@ def EncodeProcedure(inputSourceSize, symbols) :
             roadToExternalNode = FindExternalNode(externalNode)
             encodedString += roadToExternalNode
             AHM_Tree.UpdateProcedure(s, externalNode)
-    # AHM_Tree.PreOrderTraversal()
+    AHM_Tree.PreOrderTraversal()
     # for i in AHM_Tree.AllNode:
     #     print(i.number)
     return encodedString
