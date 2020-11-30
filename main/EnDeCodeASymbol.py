@@ -1,4 +1,5 @@
 import math
+import bitarray
 def FindER(m):
     '''
     @param m: the size of input symbol sources
@@ -14,10 +15,9 @@ def Encode(e, r, k):
     '''
     if(0 <= k < 2*r) :
         # ak = k-1 using e+1 bit
-        return '{0:b}'.format(k).zfill(e+1)
-    else:
-        # ak = k-r-1 using e bit
-        return '{0:b}'.format(k - r).zfill(e)
+        return bitarray.bitarray('{0:b}'.format(k).zfill(e+1))
+    # ak = k-r-1 using e bit
+    return bitarray.bitarray('{0:b}'.format(k - r).zfill(e))
         
 def Decode(e, r, encodedBitsArray):
     '''
