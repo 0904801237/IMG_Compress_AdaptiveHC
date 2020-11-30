@@ -19,20 +19,19 @@ def DecodeProcedure(inputSourceSize, encodedBitsArray, shape) :
     AHM_Tree.refresh()
     
     decodedArray = []
-
-    while (len(encodedBitsArray) > 0):
+    
+    while (len(encodedBitsArray) != 0):
+        #print(len(encodedBitsArray))
         current = AHM_Tree
         #if current is not an external node (leaf node) -> read next bit
-        print(len(encodedBitsArray))
-        while(current.left):
-            current = current.right if encodedBitsArray.pop(0) else current.left
+        while(current.left != None):
+            if (encodedBitsArray.pop(0)): current = current.right
+            else: current = current.left
         #if current node is a leaf node
-        if (current.symbol): symbol = current.symbol
+        if (current.symbol != None): symbol = current.symbol
         #if current node is a leaf node
         else: symbol = EnDeCodeASymbol.Decode(e,r,encodedBitsArray)
         #append the decoded symbol to array and update tree
         decodedArray.append(symbol)
-
         AHM_Tree.UpdateProcedure(symbol, current)
-    
     return numpy.asarray(decodedArray).reshape(shape).astype(numpy.uint8)

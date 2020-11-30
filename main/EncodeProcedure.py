@@ -30,8 +30,8 @@ def EncodeProcedure(inputSourceSize, symbols) :
     i = 0
     symbolsArray = symbols.reshape(1,symbols.size)[0]
     for s in symbolsArray:
-        print(i)
-        i += 1
+        # print(i)
+        # i += 1
         # if s have not been transmited yet
         externalNode = AHM_Tree.SymbolsTransmited.get(s) 
         if(externalNode == None):
