@@ -12,9 +12,7 @@ def FindExternalNode(externalNode):
         else:
             road += "1"
         current = current.parent
-        #print(current.number)
     return road[::-1]
-#find and return the road from root to the NYT node
 
 def EncodeProcedure(inputSourceSize, symbols) :
     '''
@@ -30,21 +28,27 @@ def EncodeProcedure(inputSourceSize, symbols) :
     AHM_Tree.refresh()
     # the binary string encoded from the input
     encodedString = ""
-    for s in symbols :
-        # if s have not been transmited yet
-        externalNode = AHM_Tree.SymbolsTransmited.get(s) 
-        if(externalNode == None):
-            #find road to NYT node
-            roadToNYT = FindExternalNode(UpdateProcedure.AdaptiveHuffmanTree.NYT)
-            encodedString +=  (roadToNYT + EnDeCodeASymbol.Encode(e, r, s))
-            AHM_Tree.UpdateProcedure(s)
-        else: # if s have been transmited yet
-            #find external node and road to it
-            roadToExternalNode = FindExternalNode(externalNode)
-            encodedString += roadToExternalNode
-            AHM_Tree.UpdateProcedure(s, externalNode)
-    AHM_Tree.PreOrderTraversal()
-    # for i in AHM_Tree.AllNode:
-    #     print(i.number)
+    i = 0
+    for row in symbols:
+        # print(i)
+        # i+=1
+        for column in row:
+            for s in column:
+                # if s have not been transmited yet
+                externalNode = AHM_Tree.SymbolsTransmited.get(s) 
+                if(externalNode == None):
+                    #find road to NYT node
+                    roadToNYT = FindExternalNode(UpdateProcedure.AdaptiveHuffmanTree.NYT)
+                    encodedString +=  (roadToNYT + EnDeCodeASymbol.Encode(e, r, s))
+                    AHM_Tree.UpdateProcedure(s)
+                else: # if s have been transmited yet
+                    #find external node and road to it
+                    roadToExternalNode = FindExternalNode(externalNode)
+                    encodedString += roadToExternalNode
+                    AHM_Tree.UpdateProcedure(s, externalNode)
+            # AHM_Tree.PreOrderTraversal()
+            # print("----")
+            # for i in AHM_Tree.AllNode:
+            #     print(i.number, i.weight)
     return encodedString
 

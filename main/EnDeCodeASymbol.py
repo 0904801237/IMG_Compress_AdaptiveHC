@@ -12,23 +12,23 @@ def Encode(e, r, k):
     @param k: the numerical order of ak in input symbol sources {a1, a2, ..., ak,..., am}
     @return: the binary string encoded of ak
     '''
-    if(1 <= k <= 2*r) :
+    if(0 <= k < 2*r) :
         # ak = k-1 using e+1 bit
-        return '{0:b}'.format(k-1).zfill(e+1)
+        return '{0:b}'.format(k).zfill(e+1)
     else:
         # ak = k-r-1 using e bit
-        return '{0:b}'.format(k - r - 1).zfill(e)
+        return '{0:b}'.format(k - r).zfill(e)
         
-def Decode(e, r, encodedArray):
+def Decode(e, r, encodedBitsArray):
     '''
     @param encodedArray: the binary array encoded
     @return p: the symbol being decoded
     '''
-    p = int("".join(encodedArray[:e]), 2)
+    p = int(encodedBitsArray[:e].to01(),2)
     if(p < r): 
-        p = int("".join(encodedArray[:e+1]), 2) + 1
-        del encodedArray[:e+1]
+        p = int(encodedBitsArray[:e+1].to01(), 2)
+        del encodedBitsArray[:e+1]
     else:
-        del encodedArray[:e]
-        p = p + r + 1
+        del encodedBitsArray[:e]
+        p = p + r
     return p
