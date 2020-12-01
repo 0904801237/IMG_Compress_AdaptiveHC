@@ -19,12 +19,14 @@ def Encode(e, r, k):
     # ak = k-r-1 using e bit
     return bitarray.bitarray('{0:b}'.format(k - r).zfill(e))
         
-def Decode(e, r, encodedBitsArray):
+def Decode(e, r, encodedBitsArray, i):
     '''
     @param encodedArray: the binary array encoded
     @return p: the symbol being decoded
     '''
-    p = int(encodedBitsArray[:e].to01(),2)
-    del encodedBitsArray[:e]
-    if(p < r): return p*2 + encodedBitsArray.pop(0)
-    return p + r
+    p = int(encodedBitsArray[i:i+e].to01(),2)
+    #del encodedBitsArray[:e]
+    i = i+e
+    if(p >= r): return p + r, i
+    return p*2 + encodedBitsArray[i], i+1
+    

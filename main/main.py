@@ -50,9 +50,8 @@ def decode(binSource, imgDest, InputSourceSize):
     decodedArray = Dep.DecodeProcedure(InputSourceSize, bitString, shape[:-1])
     img = Image.fromarray(decodedArray).save(imgDest)
     print("decoding done!")
-
 if __name__ == "__main__":
     InputSourceSize = 256
-    #encode('./images/lena512color.tiff', InputSourceSize)
+    encode('./images/lena512color.tiff', InputSourceSize)
     decode('encodeData', 'output.tiff', InputSourceSize)
     

@@ -1,7 +1,6 @@
 import numpy
 import bitarray
 
-with open('shape.npy', 'rb') as fh:
-    shape = numpy.load(fh)
-    print(shape[:-1])
-
+a = bitarray.bitarray("110011")
+del a[1:1+3]
+print(a)
