@@ -25,10 +25,6 @@ def Decode(e, r, encodedBitsArray):
     @return p: the symbol being decoded
     '''
     p = int(encodedBitsArray[:e].to01(),2)
-    if(p < r): 
-        p = int(encodedBitsArray[:e+1].to01(), 2)
-        del encodedBitsArray[:e+1]
-    else:
-        del encodedBitsArray[:e]
-        p = p + r
-    return p
+    del encodedBitsArray[:e]
+    if(p < r): return p*2 + encodedBitsArray.pop(0)
+    return p + r

@@ -21,7 +21,7 @@ def DecodeProcedure(inputSourceSize, encodedBitsArray, shape) :
     decodedArray = []
     
     while (len(encodedBitsArray) != 0):
-        #print(len(encodedBitsArray))
+        print(len(encodedBitsArray))
         current = AHM_Tree
         #if current is not an external node (leaf node) -> read next bit
         while(current.left != None):
