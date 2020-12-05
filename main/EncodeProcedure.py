@@ -3,6 +3,7 @@ import EnDeCodeASymbol as EnDeCodeASymbol
 import math
 import bitarray
 import numpy
+from progress.bar import ShadyBar
 
 #find and return the external node and road from root to it
 def FindExternalNode(externalNode):
@@ -27,11 +28,15 @@ def EncodeProcedure(inputSourceSize, symbols) :
     AHM_Tree.refresh()
     # the binary string encoded from the input
     encodedBitArray = bitarray.bitarray()
-    i = 0
+    
     symbolsArray = symbols.reshape(1,symbols.size)[0]
+
+    progressbar = ShadyBar(
+        'encoding',
+        max=len(symbolsArray),
+        suffix='%(percent).1f%% - %(elapsed_td)ss'
+    )
     for s in symbolsArray:
-        print(len(symbolsArray) - i)
-        i += 1
         # if s have not been transmited yet
         externalNode = AHM_Tree.SymbolsTransmited.get(s) 
         if(externalNode == None):
@@ -42,7 +47,8 @@ def EncodeProcedure(inputSourceSize, symbols) :
         else: # if s have been transmited yet
             #find external node and road to it
             encodedBitArray += FindExternalNode(externalNode)
-            AHM_Tree.UpdateProcedure(s, externalNode)
+            AHM_Tree.UpdateProcedure(s, externalNode) 
     #AHM_Tree.PreOrderTraversal()
+        progressbar.next()
     return encodedBitArray
 

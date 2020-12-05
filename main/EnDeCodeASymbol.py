@@ -25,8 +25,7 @@ def Decode(e, r, encodedBitsArray, i):
     @return p: the symbol being decoded
     '''
     p = int(encodedBitsArray[i:i+e].to01(),2)
-    #del encodedBitsArray[:e]
-    i = i+e
+    i += e
     if(p >= r): return p + r, i
     return p*2 + encodedBitsArray[i], i+1
     
