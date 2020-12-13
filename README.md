@@ -1,5 +1,6 @@
 # IMG_Compress_AdaptiveHC
 Image compressing using Adaptive Huffman Coding Agorithm -- Multimedia Communications Project
+- Cac
 
 Member 1:
  + Name: Hoàng Thanh Long 
@@ -9,24 +10,16 @@ Member 1:
  
 Member 2:
  + Name: Vũ Mạnh Hùng
- + Student Code :  
- + Mail :  
- + Contacts :
- 
+ + Student Code : 18020593
+
 Member 3:
  + Name: Nguyễn Đức Minh
  + Student Code : 
- + Mail : 
- + Contacts :
  
 Member 4:
  + Name: Nguyễn Văn Luân
  + Student Code :  
- + Mail : 
- + Contacts :
  
 Member 5:
  + Name: Nguyễn Văn Tâm
  + Student Code :  
- + Mail : 
- + Contacts : 

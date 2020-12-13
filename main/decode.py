@@ -30,6 +30,5 @@ def decode(binSource, imgDest, InputSourceSize):
     print("\nDecode done!")
 if __name__ == "__main__":
     InputSourceSize = 256
-    
     decode('encodeData', 'output.tiff', InputSourceSize)
     

@@ -37,10 +37,11 @@ def encode(imgSrc, destSource, InputSourceSize):
     with open(destSource, 'wb') as fh:
         encodedString.tofile(fh)
 
-    print("\nThe image file was encoded to file 'encodeData'.")
+    print("\n\nThe image file was encoded to file 'encodeData'.")
     
-    print("The compressed file size: ", len(encodedString), " bit")
-    print("The image was compressed: ",100 - len(encodedString)*100/(symbols.size * 8), "%")
+    print("\nThe compressed file size: ", len(encodedString), " bit")
+    print("\nThe image was compressed: ",100 - len(encodedString)*100/(symbols.size * 8), "%")
+    print("\n")
 
 if __name__ == "__main__":
     InputSourceSize = 256
