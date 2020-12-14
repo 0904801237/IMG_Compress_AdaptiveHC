@@ -15,11 +15,11 @@ from PIL import Image
 
 def decode(binSource, imgDest, InputSourceSize):
     print("Start decoding...")
-    with open('shape.npy', 'rb') as fh:
+    with open(binSource+'/shape.npy', 'rb') as fh:
         shape = numpy.load(fh)
     #read encode bit from file
     bitString = bitarray.bitarray()
-    with open(binSource, 'rb') as fh:
+    with open(binSource+"/encodeData.bin", 'rb') as fh:
         bitString.fromfile(fh)
     del bitString[len(bitString)-shape[-1]:len(bitString)]
     #decoding
@@ -30,5 +30,7 @@ def decode(binSource, imgDest, InputSourceSize):
     print("\nDecode done!")
 if __name__ == "__main__":
     InputSourceSize = 256
-    decode('encodeData', 'output.tiff', InputSourceSize)
+    InputPath = "./output" # path to folder contains 2 file: encodeData + shape
+    OutPath = "output.tiff" # the output image
+    decode(InputPath, 'output.tiff', InputSourceSize)
     

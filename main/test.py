@@ -15,17 +15,15 @@ import numpy
 from PIL import Image
 
 def encode(imgSymbols, destSource, InputSourceSize):
-    symbols = numpy.asarray(imgSymbols) # ~ aardvark
+    symbols = numpy.asarray(imgSymbols) 
     print("the original size of image: ",symbols.size * 5, " bits")
-    # 00000101000100000110001011010110001010
 
     #shape of the orginal image
     shape = numpy.array(symbols.shape)
 
     #encode image
     encodedString = Enp.EncodeProcedure(InputSourceSize, symbols)
-    #print("\nEncode bits string: ", encodedString)
-    #000
+
     #save the remainder bit
     if(len(encodedString)%8 == 0): shape = numpy.append(shape, 0)
     else: shape = numpy.append(shape, 8 - len(encodedString)%8)
@@ -60,7 +58,7 @@ if __name__ == "__main__":
     InputSourceSize = 26 # [a - z]
 
     symbols = []
-    for i in range(1000000):
+    for i in range(100):
         symbols.append(random.randrange(0, 25))
     
     print("\nThe symbols size", len(symbols))

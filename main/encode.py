@@ -32,9 +32,9 @@ def encode(imgSrc, destSource, InputSourceSize):
     else: shape = numpy.append(shape, 8 - len(encodedString)%8)
     
     #save to file
-    with open('shape.npy', 'wb') as fh:
+    with open(destSource + "/shape.npy", 'wb') as fh:
         numpy.save(fh, shape)
-    with open(destSource, 'wb') as fh:
+    with open(destSource+"/encodeData.bin", 'wb') as fh:
         encodedString.tofile(fh)
 
     print("\n\nThe image file was encoded to file 'encodeData'.")
@@ -45,4 +45,6 @@ def encode(imgSrc, destSource, InputSourceSize):
 
 if __name__ == "__main__":
     InputSourceSize = 256
-    encode('./images/3.tiff', 'encodeData', InputSourceSize)
+    IMGPath = "./images/tshirt.tiff"
+    OutPath = "./output" # path to folder output (output will contain 2 file: encodeData + shape)
+    encode(IMGPath, OutPath, InputSourceSize)
